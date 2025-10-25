@@ -15,8 +15,8 @@ public class MenuController {
             opcao = scan.nextInt();
             switch (opcao) {
                 case 1 -> SubMenuController.show("Aluno");
-                case 2 -> SubMenuController.show("Curso");
-                case 3 -> SubMenuController.show("Disciplina");
+                case 2 -> SubMenuController.show("Disciplinas");
+                case 3 -> SubMenuController.show("Curso");
             }
 
         } while (opcao < 4);

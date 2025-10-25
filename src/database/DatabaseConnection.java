@@ -8,7 +8,7 @@ public class DatabaseConnection {
     private static final String HOST = "jdbc:mysql://localhost/";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "";
-    private static final String DATABASE = "POOFACULDADE";
+    private static final String DATABASE = "FACULDADE";
 
     private DatabaseConnection() {}
 

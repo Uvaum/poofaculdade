@@ -13,12 +13,6 @@ import java.util.Optional;
 
 public class AlunoDAO {
 
-    private static List<Aluno> listAlunos = new ArrayList<>();
-
-//    public static void Add(Aluno aluno) {
-//        listAlunos.add(aluno);
-//    }
-
     public static void Add(Aluno aluno) {
         String sql = "INSERT INTO alunos (matricula, nome, idade) VALUES (?, ?, ?)";
 
@@ -33,17 +27,12 @@ public class AlunoDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
-            throw new RuntimeException("Erro ao cadastrar aluno no banco de dados", e);
         }
     }
 
-//    public static Aluno Get(String matricula) {
-//        return listAlunos.stream().filter(a -> a.getMatricula().equals(matricula)).findFirst().get();
-//    }
-
     public static Aluno Get(String matricula) {
         String sql = "SELECT * FROM alunos WHERE matricula = ?";
-        Optional<Aluno> aluno = Optional.empty();
+        Aluno aluno = null;
 
         try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
 
@@ -51,38 +40,82 @@ public class AlunoDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    // Cria o objeto Aluno a partir dos dados retornados
-                    aluno = Optional.of(new Aluno(
+                    aluno = new Aluno(
                             rs.getString("nome"),
                             rs.getInt("idade"),
                             rs.getString("matricula")
-                    ));
+                    );
                 }
             }
 
         } catch (SQLException e) {
             System.out.println("Erro ao consultar aluno: " + e.getMessage());
-            throw new RuntimeException("Erro ao consultar aluno no banco de dados", e);
         }
 
-        return aluno.get();
+        return aluno;
     }
-
-    public static List<Aluno> GetAllByAge(int age) {
-        return listAlunos.stream().filter(a -> a.getIdade() == age).toList();
-    }
-
-//    public static List<Aluno> GetAllByNameContains(String name) {
-//        return listAlunos.stream().filter(a -> a.getNome().contains(name)).toList();
-//    }
 
     public static List<Aluno> GetAll() {
-        return listAlunos;
+        String sql = "SELECT * FROM alunos";
+        List<Aluno> alunos = new ArrayList<>();
+
+        try (Statement stmt = DatabaseConnection.getConnection().createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Aluno aluno = new Aluno(
+                        rs.getString("nome"),
+                        rs.getInt("idade"),
+                        rs.getString("matricula")
+                );
+                alunos.add(aluno);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar alunos: " + e.getMessage());
+        }
+
+        return alunos;
+    }
+
+    public static void Update(Aluno aluno) {
+        String sql = "UPDATE alunos SET nome = ?, idade = ? WHERE matricula = ?";
+
+        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+
+            stmt.setString(1, aluno.getNome());
+            stmt.setInt(2, aluno.getIdade());
+            stmt.setString(3, aluno.getMatricula());
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Aluno atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum aluno encontrado com essa matrícula.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar aluno: " + e.getMessage());
+        }
     }
 
     public static void Delete(String matricula) {
-        Aluno aluno = Get(matricula);
-        listAlunos.remove(aluno);
+        String sql = "DELETE FROM alunos WHERE matricula = ?";
+
+        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+
+            stmt.setString(1, matricula);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Aluno removido com sucesso!");
+            } else {
+                System.out.println("Nenhum aluno encontrado com essa matrícula.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao remover aluno: " + e.getMessage());
+        }
     }
 
     public static void Criar() {
@@ -101,7 +134,6 @@ public class AlunoDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro ao criar a tabela: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

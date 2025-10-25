@@ -9,15 +9,21 @@ public class AlunoController {
     public static void Criar() {
         Aluno aluno = new Aluno();
         AlunoView.Criar(aluno);
-        if (aluno != null) {
+        if (aluno != null && aluno.getMatricula() != null) {
             AlunoDAO.Add(aluno);
+        } else {
+            System.out.println("Erro: Dados do aluno inválidos.");
         }
     }
 
     public static void Consultar() {
         String matricula = AlunoView.GetMatricula();
         Aluno aluno = AlunoDAO.Get(matricula);
-        AlunoView.Consultar(aluno);
+        if (aluno != null) {
+            AlunoView.Consultar(aluno);
+        } else {
+            System.out.println("Aluno não encontrado!");
+        }
     }
 
     public static void Listar() {
@@ -27,7 +33,12 @@ public class AlunoController {
     public static void Atualizar() {
         String matricula = AlunoView.GetMatricula();
         Aluno aluno = AlunoDAO.Get(matricula);
-        AlunoView.Atualizar(aluno);
+        if (aluno != null) {
+            AlunoView.Atualizar(aluno);
+            AlunoDAO.Update(aluno);
+        } else {
+            System.out.println("Aluno não encontrado!");
+        }
     }
 
     public static void Deletar() {
