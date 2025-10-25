@@ -28,20 +28,20 @@ public class SubMenuController {
                 switch (opcao) {
 //                    case 1 -> CursoController.Criar();
 //                    case 2 -> CursoController.Consultar();
-//                    case 3 -> CursoController.Atualizar();
-//                    case 4 -> CursoController.Deletar();
+//                    case 3 -> CursoController.Deletar();
+//                    case 4 -> CursoController.Atualizar;
 //                    case 5 -> CursoController.Listar();
 //                    case 6 -> System.out.println("Voltando ao menu principal...");
                 }
             }
             if (value.equals("Disciplina")) {
                 switch (opcao) {
-//                    case 1 -> DisciplinaController.Criar();
-//                    case 2 -> DisciplinaController.Consultar();
-//                    case 3 -> DisciplinaController.Atualizar();
-//                    case 4 -> DisciplinaController.Deletar();
-//                    case 5 -> DisciplinaController.Listar();
-//                    case 6 -> System.out.println("Voltando ao menu principal...");
+                    case 1 -> DisciplinaController.Criar();
+                    case 2 -> DisciplinaController.Consultar();
+                    case 3 -> DisciplinaController.Deletar();
+                    case 4 -> DisciplinaController.Atualizar();
+                    case 5 -> DisciplinaController.Listar();
+                    case 6 -> System.out.println("Voltando ao menu principal...");
                 }
             }
 

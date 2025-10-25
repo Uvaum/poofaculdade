@@ -1,5 +1,6 @@
 import controller.MenuController;
 import dao.AlunoDAO;
+import dao.DisciplinaDAO;
 import database.DatabaseConnection;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -9,6 +10,7 @@ public class Main {
 
         DatabaseConnection.getConnection();
         AlunoDAO.Criar();
+        DisciplinaDAO.Criar();
         MenuController.show();
         DatabaseConnection.closeConnection();
 
