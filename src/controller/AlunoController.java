@@ -9,10 +9,13 @@ public class AlunoController {
     public static void Criar() {
         Aluno aluno = new Aluno();
         AlunoView.Criar(aluno);
-        if (aluno != null && aluno.getMatricula() != null) {
+        
+        // Validação: verifica se matrícula e curso foram preenchidos
+        if (aluno != null && aluno.getMatricula() != null && aluno.getCodigoCurso() != null) {
             AlunoDAO.Add(aluno);
+            // As disciplinas já foram adicionadas na view
         } else {
-            System.out.println("Erro: Dados do aluno inválidos.");
+            System.out.println("Erro: Dados do aluno inválidos ou curso não selecionado.");
         }
     }
 

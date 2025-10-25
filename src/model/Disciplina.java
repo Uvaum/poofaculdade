@@ -5,13 +5,13 @@ public class Disciplina {
     private String codigo;
     private String nome;
     private int cargaHoraria;
-    private String professor;
+    private String codigoCurso;
 
-    public Disciplina(String codigo, String nome, int cargaHoraria, String professor) {
+    public Disciplina(String codigo, String nome, int cargaHoraria, String codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
-        this.professor = professor;
+        this.codigoCurso = codigoCurso;
     }
 
     public Disciplina() {
@@ -41,11 +41,11 @@ public class Disciplina {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getProfessor() {
-        return professor;
+    public String getCodigoCurso() {
+        return codigoCurso;
     }
 
-    public void setProfessor(String professor) {
-        this.professor = professor;
+    public void setCodigoCurso(String codigoCurso) {
+        this.codigoCurso = codigoCurso;
     }
 }

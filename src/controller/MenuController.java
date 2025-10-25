@@ -11,15 +11,29 @@ public class MenuController {
         int opcao = -1;
 
         do {
-            MenuView.print();
-            opcao = scan.nextInt();
-            switch (opcao) {
-                case 1 -> SubMenuController.show("Aluno");
-                case 2 -> SubMenuController.show("Disciplinas");
-                case 3 -> SubMenuController.show("Curso");
+            try {
+                MenuView.print();
+                opcao = scan.nextInt();
+                scan.nextLine(); // Limpar buffer
+
+                switch (opcao) {
+                    case 1 -> SubMenuController.show("Aluno");
+                    case 2 -> SubMenuController.show("Disciplinas");
+                    case 3 -> SubMenuController.show("Curso");
+                    case 4 -> System.out.println("\nEncerrando o sistema... Até logo!");
+                    default -> {
+                        if (opcao != 4) {
+                            System.out.println("Opção inválida! Tente novamente.");
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Erro: Entrada inválida! Digite um número.");
+                scan.nextLine(); // Limpar buffer em caso de erro
+                opcao = -1; // Força continuar no loop
             }
 
-        } while (opcao < 4);
+        } while (opcao != 4);
 
     }
 

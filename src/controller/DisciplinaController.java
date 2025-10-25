@@ -9,10 +9,12 @@ public class DisciplinaController {
     public static void Criar() {
         Disciplina disciplina = new Disciplina();
         DisciplinaView.Criar(disciplina);
-        if (disciplina != null && disciplina.getCodigo() != null) {
+        
+        // Validação: verifica se código e curso foram preenchidos
+        if (disciplina != null && disciplina.getCodigo() != null && disciplina.getCodigoCurso() != null) {
             DisciplinaDAO.Add(disciplina);
         } else {
-            System.out.println("Erro: Dados da disciplina inválidos.");
+            System.out.println("Erro: Dados da disciplina inválidos ou curso não selecionado.");
         }
     }
 
