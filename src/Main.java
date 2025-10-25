@@ -11,8 +11,8 @@ public class Main {
 
         DatabaseConnection.getConnection();
 
-        DisciplinaDAO.Criar();
         CursoDAO.Criar();
+        DisciplinaDAO.Criar();
         AlunoDAO.Criar();
 
         MenuController.show();

@@ -21,8 +21,7 @@ public class CursoView {
         curso.setDuracao(scan.nextInt());
         scan.nextLine(); // Limpar buffer
 
-        System.out.print("Coordenador: ");
-        curso.setCoordenador(scan.nextLine());
+
     }
 
     public static void Atualizar(Curso curso) {
@@ -47,11 +46,7 @@ public class CursoView {
             }
         }
 
-        System.out.print("Coordenador (" + curso.getCoordenador() + "): ");
-        String coordenador = scan.nextLine();
-        if (!coordenador.isEmpty()) {
-            curso.setCoordenador(coordenador);
-        }
+
     }
 
     public static void Listar(List<Curso> cursos) {
@@ -71,7 +66,6 @@ public class CursoView {
         System.out.println("Código: " + curso.getCodigo());
         System.out.println("Nome: " + curso.getNome());
         System.out.println("Duração: " + curso.getDuracao() + " semestres");
-        System.out.println("Coordenador: " + curso.getCoordenador());
     }
 
     public static String GetCodigo() {
