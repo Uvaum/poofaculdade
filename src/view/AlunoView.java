@@ -45,7 +45,7 @@ public class AlunoView {
         do {
             System.out.print("\nInforme o código do curso: ");
             codigoCurso = scan.nextLine();
-            
+        
             // Validar se o curso existe
             Curso cursoSelecionado = CursoDAO.Get(codigoCurso);
             if (cursoSelecionado != null) {
@@ -57,8 +57,8 @@ public class AlunoView {
             }
         } while (!cursoValido);
 
-        // Adicionar disciplinas ao aluno
-        AdicionarDisciplinas(aluno.getMatricula());
+        // REMOVER esta linha - as disciplinas serão adicionadas depois no Controller
+        // AdicionarDisciplinas(aluno.getMatricula());
     }
 
     public static void AdicionarDisciplinas(String matriculaAluno) {

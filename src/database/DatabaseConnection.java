@@ -8,7 +8,7 @@ public class DatabaseConnection {
     private static final String HOST = "jdbc:mysql://localhost/";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "";
-    private static final String DATABASE = "FACULDADE";
+    private static final String DATABASE = "faculdade";
 
     private DatabaseConnection() {}
 
@@ -26,8 +26,12 @@ public class DatabaseConnection {
                         System.out.println("Conectando…");
                         // Criar a conexão com o banco de dados
                         connection = DriverManager.getConnection(
-                                HOST + DATABASE + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true", user, pass
+                                HOST + DATABASE, user, pass
                         );
+                        
+
+                        connection.setAutoCommit(true);
+                        
                         System.out.println("Conexão bem-sucedida!");
                     } catch (SQLException e) {
                         System.out.println("Erro ao conectar: " + e.getMessage());

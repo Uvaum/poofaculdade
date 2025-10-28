@@ -1,8 +1,8 @@
-
 package dao;
 
 import database.DatabaseConnection;
 import model.Aluno;
+import view.AlunoView;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -236,6 +236,7 @@ public class AlunoDAO {
 
         return codigos;
     }
+
 
     public static void Criar() {
         // Criar tabela de alunos
