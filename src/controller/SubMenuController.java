@@ -51,8 +51,8 @@ public class SubMenuController {
                 }
             } catch (Exception e) {
                 System.out.println("Erro: Entrada inválida! Digite um número.");
-                scan.nextLine(); // Limpar buffer em caso de erro
-                opcao = -1; // Força continuar no loop
+                scan.nextLine();
+                opcao = -1;
             }
 
         } while (opcao != 6);
