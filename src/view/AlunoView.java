@@ -1,5 +1,6 @@
 package view;
 
+
 import dao.AlunoDAO;
 import dao.CursoDAO;
 import dao.DisciplinaDAO;
@@ -238,7 +239,7 @@ public class AlunoView {
         }
 
         // Buscar e exibir disciplinas do aluno
-        List<String> codigosDisciplinas = AlunoDAO.GetDisciplinasCodigos(aluno.getMatricula());
+        List<String> codigosDisciplinas = AlunoDAO.GetDisciplinasCodigos(aluno.getMatricula());;
         if (codigosDisciplinas.isEmpty()) {
             System.out.println("\nDisciplinas: Nenhuma disciplina matriculada");
         } else {
