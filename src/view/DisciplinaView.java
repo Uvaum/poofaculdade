@@ -1,6 +1,7 @@
 package view;
 
 import dao.CursoDAO;
+import dao.DisciplinaDAO;
 import model.Curso;
 import model.Disciplina;
 
@@ -23,36 +24,7 @@ public class DisciplinaView {
         disciplina.setCargaHoraria(scan.nextInt());
         scan.nextLine(); // Limpar buffer
 
-        // Exibir cursos disponíveis
-        List<Curso> cursos = CursoDAO.GetAll();
-        if (cursos.isEmpty()) {
-            System.out.println("\nERRO: Nenhum curso cadastrado no sistema!");
-            System.out.println("É necessário cadastrar ao menos um curso antes de cadastrar disciplinas.");
-            disciplina.setCodigo(null); // Invalida a disciplina
-            return;
-        }
-
-        System.out.println("\n=== CURSOS DISPONÍVEIS ===");
-        for (Curso c : cursos) {
-            System.out.println(c.getCodigo() + " - " + c.getNome());
-        }
-
-        String codigoCurso;
-        boolean cursoValido = false;
-        do {
-            System.out.print("\nInforme o código do curso ao qual a disciplina pertence: ");
-            codigoCurso = scan.nextLine();
-            
-            // Validar se o curso existe
-            Curso cursoSelecionado = CursoDAO.Get(codigoCurso);
-            if (cursoSelecionado != null) {
-                disciplina.setCodigoCurso(codigoCurso);
-                cursoValido = true;
-                System.out.println("Disciplina será vinculada ao curso: " + cursoSelecionado.getNome());
-            } else {
-                System.out.println("ERRO: Código de curso inválido! Tente novamente.");
-            }
-        } while (!cursoValido);
+        System.out.println("\nDisciplina cadastrada! Agora você pode vinculá-la a um ou mais cursos.");
     }
 
     public static void Atualizar(Disciplina disciplina) {
@@ -76,37 +48,6 @@ public class DisciplinaView {
                 System.out.println("Carga horária inválida, mantendo valor atual.");
             }
         }
-
-        // Permitir alteração do curso
-        System.out.print("Deseja alterar o curso? (S/N): ");
-        String alterarCurso = scan.nextLine();
-        if (alterarCurso.equalsIgnoreCase("S")) {
-            List<Curso> cursos = CursoDAO.GetAll();
-            System.out.println("\n=== CURSOS DISPONÍVEIS ===");
-            for (Curso c : cursos) {
-                System.out.println(c.getCodigo() + " - " + c.getNome());
-            }
-
-            String codigoCurso;
-            boolean cursoValido = false;
-            do {
-                System.out.print("\nInforme o novo código do curso (atual: " + disciplina.getCodigoCurso() + "): ");
-                codigoCurso = scan.nextLine();
-                
-                if (!codigoCurso.isEmpty()) {
-                    Curso cursoSelecionado = CursoDAO.Get(codigoCurso);
-                    if (cursoSelecionado != null) {
-                        disciplina.setCodigoCurso(codigoCurso);
-                        cursoValido = true;
-                        System.out.println("Curso alterado para: " + cursoSelecionado.getNome());
-                    } else {
-                        System.out.println("ERRO: Código de curso inválido! Tente novamente.");
-                    }
-                } else {
-                    cursoValido = true; // Mantém o curso atual
-                }
-            } while (!cursoValido);
-        }
     }
 
     public static void Listar(List<Disciplina> disciplinas) {
@@ -126,13 +67,19 @@ public class DisciplinaView {
         System.out.println("Código: " + disciplina.getCodigo());
         System.out.println("Nome: " + disciplina.getNome());
         System.out.println("Carga Horária: " + disciplina.getCargaHoraria() + "h");
-        
-        // Buscar e exibir nome do curso
-        Curso curso = CursoDAO.Get(disciplina.getCodigoCurso());
-        if (curso != null) {
-            System.out.println("Curso: " + curso.getNome() + " (" + curso.getCodigo() + ")");
+
+        // Buscar e exibir cursos aos quais a disciplina pertence
+        List<String> codigosCursos = DisciplinaDAO.GetCursosDaDisciplina(disciplina.getCodigo());
+        if (codigosCursos.isEmpty()) {
+            System.out.println("Cursos: Nenhum curso vinculado");
         } else {
-            System.out.println("Curso: Não encontrado");
+            System.out.println("\nCursos que oferecem esta disciplina:");
+            for (String codigo : codigosCursos) {
+                Curso curso = CursoDAO.Get(codigo);
+                if (curso != null) {
+                    System.out.println("  • " + curso.getNome() + " (" + curso.getCodigo() + ") - " + curso.getTurno());
+                }
+            }
         }
     }
 

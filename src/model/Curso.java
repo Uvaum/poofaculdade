@@ -5,12 +5,13 @@ public class Curso {
     private String codigo;
     private String nome;
     private int duracao; // em semestres
-    private String coordenador;
+    private String turno;
 
-    public Curso(String codigo, String nome, int duracao) {
+    public Curso(String codigo, String nome, int duracao, String turno) {
         this.codigo = codigo;
         this.nome = nome;
         this.duracao = duracao;
+        this.turno = turno;
 
     }
 
@@ -29,6 +30,10 @@ public class Curso {
         return nome;
     }
 
+    public String getTurno() {return turno;}
+
+    public void setTurno(String turno) {this.turno = turno;}
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -39,6 +44,10 @@ public class Curso {
 
     public void setDuracao(int duracao) {
         this.duracao = duracao;
+    }
+
+    public void setDisciplinas(Disciplina[] disciplinas){
+
     }
 
 }

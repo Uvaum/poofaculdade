@@ -11,6 +11,8 @@ public class CursoController {
         CursoView.Criar(curso);
         if (curso != null && curso.getCodigo() != null) {
             CursoDAO.Add(curso);
+
+            CursoView.GerenciarDisciplinas(curso.getCodigo());
         } else {
             System.out.println("Erro: Dados do curso inválidos.");
         }
